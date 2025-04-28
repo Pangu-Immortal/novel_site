@@ -1,0 +1,14 @@
+/* 自定义样式 */
+body {
+    font-family: 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.novel-card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.chapter-content {
+    line-height: 1.8;
+    font-size: 1.1rem;
+}

@@ -27,17 +27,13 @@ def novel_detail(request, novel_id):
 
 
 def chapter_detail(request, novel_id, chapter_id):
-    """
-    章节阅读页视图：显示特定章节的内容
-    novel_id: 小说的ID
-    chapter_id: 章节的ID
-    """
+    """章节阅读页视图"""
     novel = get_object_or_404(Novel, id=novel_id)
     chapter = get_object_or_404(Chapter, id=chapter_id, novel=novel)
 
-    # 获取上一章和下一章
-    prev_chapter = Chapter.objects.filter(novel=novel, order__lt=chapter.order).order_by('-order').first()
-    next_chapter = Chapter.objects.filter(novel=novel, order__gt=chapter.order).order_by('order').first()
+    # 使用模型方法获取上一章和下一章
+    prev_chapter = chapter.get_previous_chapter()
+    next_chapter = chapter.get_next_chapter()
 
     context = {
         'novel': novel,

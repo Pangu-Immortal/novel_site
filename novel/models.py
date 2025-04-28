@@ -57,3 +57,13 @@ class Chapter(models.Model):
     def __str__(self):
         """用于在后台显示章节信息"""
         return f"{self.novel.title} - {self.title}"
+
+    def get_previous_chapter(self):
+        """获取上一章节"""
+        return Chapter.objects.filter(novel=self.novel, order__lt=self.order).order_by('-order').first()
+
+    def get_next_chapter(self):
+        """获取下一章节"""
+        return Chapter.objects.filter(novel=self.novel, order__gt=self.order).order_by('order').first()
+
+

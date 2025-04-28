@@ -26,6 +26,30 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
+# 生产环境设置
+# 以下设置只在生产环境中使用，不要在开发环境中启用
+
+# SECURITY WARNING: 保持 secret key 的私密性
+# 在生产环境中，从环境变量中读取 SECRET_KEY
+# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'default-secret-key-for-dev')
+
+# 在生产环境中禁用调试模式
+# DEBUG = False
+
+# 允许的主机名，生产环境中需要设置
+# ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
+
+# 静态文件设置（CSS、JavaScript、Images）
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # 收集静态文件的目录
+STATICFILES_DIRS = [BASE_DIR / 'static'] if (BASE_DIR / 'static').exists() else []
+
+# 创建静态文件目录（如果不存在）
+import os
+os.makedirs(BASE_DIR / 'static', exist_ok=True)
+
+
 # Application definition
 
 INSTALLED_APPS = [
