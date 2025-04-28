@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ chapter.title }} - {{ novel.title }} - 小说阅读网{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">首页</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'novel_detail' novel.id %}">{{ novel.title }}</a></li>
+        <li class="breadcrumb-item active">{{ chapter.title }}</li>
+    </ol>
+</nav>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="mb-0">{{ chapter.title }}</h2>
+    </div>
+    <div class="card-body">
+        <div class="chapter-content" style="font-size: 1.2rem; line-height: 1.8;">
+            {{ chapter.content|linebreaks }}
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-between">
+            {% if prev_chapter %}
+                <a href="{% url 'chapter_detail' novel.id prev_chapter.id %}" class="btn btn-outline-primary">&laquo; 上一章</a>
+            {% else %}
+                <a href="{% url 'novel_detail' novel.id %}" class="btn btn-outline-secondary">返回小说</a>
+            {% endif %}
+            
+            {% if next_chapter %}
+                <a href="{% url 'chapter_detail' novel.id next_chapter.id %}" class="btn btn-outline-primary">下一章 &raquo;</a>
+            {% else %}
+                <a href="{% url 'novel_detail' novel.id %}" class="btn btn-outline-secondary">返回小说</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

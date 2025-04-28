@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}首页 - 小说阅读网{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">热门小说</h1>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        {% for novel in novels %}
+            <div class="col">
+                <div class="card novel-card h-100">
+                    {% if novel.cover %}
+                        <img src="{{ novel.cover.url }}" class="card-img-top novel-cover" alt="{{ novel.title }}">
+                    {% else %}
+                        <div class="card-img-top novel-cover bg-light d-flex justify-content-center align-items-center">
+                            <span class="text-muted">暂无封面</span>
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ novel.title }}</h5>
+                        <div class="mb-2">
+                            {% with ''|center:novel.rating|make_list as stars %}
+                                {% for _ in stars %}
+                                    <span class="text-warning">★</span>
+                                {% endfor %}
+                            {% endwith %}
+
+                            {% with ''|center:5|make_list as total %}
+                                {% for _ in total %}
+                                    {% if forloop.counter > novel.rating %}
+                                        <span class="text-muted">☆</span>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endwith %}
+
+                            <small class="text-muted ms-1">{{ novel.rating }}/5</small>
+                        </div>
+                        <p class="card-text">{{ novel.introduction|truncatechars:100 }}</p>
+                        <a href="{% url 'novel_detail' novel.id %}" class="btn btn-primary">开始阅读</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    暂无小说，请等待更新。
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <!-- Bootstrap Icons for ratings -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+{% endblock %}
