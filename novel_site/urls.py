@@ -23,6 +23,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from novel import views as novel_views
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),  # 后台管理URL
@@ -41,7 +42,7 @@ urlpatterns = [
     # 法律页面URL
     path('privacy/', novel_views.privacy_policy, name='privacy'),  # 隐私政策
     path('terms/', novel_views.terms_of_service, name='terms'),  # 服务条款
-]
+] + debug_toolbar_urls()
 
 # 开发环境下提供媒体文件访问
 if settings.DEBUG:
