@@ -1,0 +1,13 @@
+            - name: Django Test CI
+  # You may pin to the exact commit or the version.
+  # uses: UKnowWhoIm/django-test-action@6d8e2de46b5da6007106ebe443de99416ec238d0
+  uses: UKnowWhoIm/django-test-action@v0.6.1
+  with:
+    # The path of the directory containing the settings file(Without `./`)
+    settings-dir-path:
+    # Run tests in parallel
+    parallel-tests: # optional
+    # The path of dependancy file, typically requirements.txt
+    requirements-file: # optional, default is requirements.txt
+    # The path of an env file, if you require environment variables
+    env-file: # optional, default is
